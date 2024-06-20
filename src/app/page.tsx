@@ -1,9 +1,19 @@
 import Jobs from "@/components/jobs/jobs";
+import { JobFilterValues } from "@/lib/validation";
+import { JobFilterParamsTypes } from "@/types/job.type";
 
-export default function Home() {
+export default function Home({ searchParams }: JobFilterParamsTypes) {
+  const { q, type, location, remote } = searchParams
+  const filterValues: JobFilterValues = {
+    q: q,
+    type: type,
+    location: location,
+    remote: remote === "true",
+  }
+
   return (
-    <main>
-      <Jobs />
+    <main className="container">
+      <Jobs filterValues={filterValues} />
     </main>
   );
 }
