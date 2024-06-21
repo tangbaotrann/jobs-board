@@ -14,12 +14,8 @@ const numbRequiredString = requiredString.regex(/^\d+$/, "Must be number!")
 
 const jobTypeSchema = requiredString.refine(val => (jobTypes.includes(val), "Invalid jobs type!"))
 const companyLogoSchema = z.custom<File | undefined>()
-    .refine(file => {
-        return !file || (file instanceof File && file.type.startsWith("image/"))
-    }, "Must be an image file!")
-    .refine(file => {
-        return !file || (file.size < 1024 * 1024 * 2)
-    }, "File must be less than 2MB!")
+    .refine(file => !file || (file instanceof File && file.type.startsWith("image/")), "Must be an image file!")
+    .refine(file => !file || (file.size < 1024 * 1024 * 2), "File must be less than 2MB!")
 const applicationSchema = z.object({
     applicationEmail: z.string().max(100).email().optional().or(z.literal("")),
     applicationUrl: z.string().max(100).url().optional().or(z.literal(""))

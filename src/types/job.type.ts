@@ -24,3 +24,10 @@ export type JobFilterParamsTypes = {
     remote?: string,
   }
 }
+
+export type CitiesTypes = {
+  country: string,
+    geonameid: number,
+    name: string,
+    subcountry: string,
+}
