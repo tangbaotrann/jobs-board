@@ -1,13 +1,13 @@
+import prisma from "@/lib/prisma"
+
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import prisma from "@/lib/prisma"
 import { jobTypes } from "@/constants/jobType.constants";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Button } from "@/components/ui/button";
 import { filterJobs } from "@/lib/actions/jobs.action";
 import { JobFilterValues } from "@/lib/validation";
 import FormSubmitButton from "@/components/FormSubmitButton.tsx/FormSubmitButton";
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 type JobFilterValuesTypes = {
     defaultValue: JobFilterValues
@@ -25,7 +25,7 @@ async function JobFilter({ defaultValue }: JobFilterValuesTypes) {
 
     return (
         <section className="md:w-[240px] sticky top-0 h-fit bg-background border rounded-lg p-2">
-            <form action={filterJobs}>
+            <form action={filterJobs} key={JSON.stringify(defaultValue)}>
                 <div className="space-y-4">
                     <div className="flex flex-col gap-2">
                         <Label htmlFor="q">Search: </Label>
@@ -36,7 +36,7 @@ async function JobFilter({ defaultValue }: JobFilterValuesTypes) {
                         <Label htmlFor="type">Type</Label>
                         <Select name="type">
                             <SelectTrigger>
-                                <SelectValue defaultValue="" placeholder="Select type..." />
+                                <SelectValue placeholder="Select type..." />
                             </SelectTrigger>
                             <SelectContent id="type">
                                 <SelectGroup>
@@ -54,7 +54,7 @@ async function JobFilter({ defaultValue }: JobFilterValuesTypes) {
                         <Label htmlFor="location">Location: </Label>
                         <Select name="location">
                             <SelectTrigger>
-                                <SelectValue defaultValue="" placeholder="Select location..." />
+                                <SelectValue placeholder="Select location..." />
                             </SelectTrigger>
                             <SelectContent id="location">
                                 <SelectGroup>

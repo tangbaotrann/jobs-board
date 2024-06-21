@@ -4,12 +4,13 @@ import { JobTypes } from "@/types/job.type";
 import JobFilter from "./jobFilter/jobFilter";
 import { JobFilterValues } from "@/lib/validation";
 import { Prisma } from "@prisma/client";
+import getTitleJob from "@/lib/getTitleJob";
 
 type JobFilterPropsTypes = {
   filterValues: JobFilterValues;
 }
 
-async function Jobs({filterValues}: JobFilterPropsTypes) {
+async function Jobs({ filterValues }: JobFilterPropsTypes) {
   const { q, type, location, remote } = filterValues
 
   const searchValueString = q?.split(' ').filter(w => w.length > 0).join(' & ')
@@ -44,7 +45,7 @@ async function Jobs({filterValues}: JobFilterPropsTypes) {
   return (
     <main>
       <div className="text-center">
-        <h1 className="text-4xl font-bold">Developer Jobs</h1>
+        <h1 className="text-4xl font-bold">{getTitleJob(filterValues)}</h1>
         <p className="text-muted-foreground">Find your dream job.</p>
       </div>
 

@@ -9,13 +9,14 @@ export const filterJobs = async (formData: FormData) => {
 
     const { q,type, location, remote } = jobFilterSchema.parse(values)
 
-    const searchParams = new URLSearchParams({
+    const searchValues = {
         ...(q && { q: q.trim() }),
         ...(type && { type: type }),
         ...(location && { location: location }),
         ...(remote && { remote: "true" })
-    })
+    }
 
-    console.log('-->', searchParams.toString())
+    const searchParams = new URLSearchParams(searchValues)
+
     redirect(`/?${searchParams.toString()}`)
 }
